@@ -1627,9 +1627,41 @@ function showNotification(message, msgId, type = 'info') {
 
                 } else {
                     btnLogin.disabled = false; btnLogin.innerText = 'INGRESAR'; btnLogin.style.opacity = '1';
-                    msgBox.innerText = '❌ ' + res.message; msgBox.style.color = '#ff6b6b';
+                    
+                    // 👇 INICIO INTERCEPCIÓN DE PAGO 👇
+                    if (res.impago) {
+                        title.style.display = 'none'; // Oculta el título "LOGIN"
+                        userInput.wrap.style.display = 'none';
+                        passInput.wrap.style.display = 'none';
+                        btnLogin.style.display = 'none';
+                        const btnRepairNode = document.getElementById('crm-hidden-repair-btn');
+                        if(btnRepairNode) btnRepairNode.style.display = 'none';
+                        
+                        // Expandimos el contenedor para que el QR se vea inmenso y centrado
+                        formContainer.style.width = '450px';
+                        formContainer.style.padding = '10px';
+                        
+                        msgBox.innerHTML = `
+                            <div style="background: rgba(15, 23, 42, 0.95); border: 2px solid #a855f7; border-radius: 16px; padding: 30px; text-align: center; color: white; box-shadow: 0 0 30px rgba(168, 85, 247, 0.4);">
+                                <h2 style="color: #a855f7; margin: 0 0 10px 0; font-weight:900; letter-spacing: 1px; font-size: 24px;">⚠️ SUSCRIPCIÓN VENCIDA ⚠️</h2>
+                                <p style="font-size: 15px; margin-bottom: 20px; color: #cbd5e1;">Tu acceso mensual requiere renovación.</p>
+                                
+                                <img src="https://i.postimg.cc/50gcX809/Whats-App-Image-2026-03-23-at-18-11-38.jpg" alt="QR Yape" style="width: 280px; max-width: 100%; border-radius: 12px; margin-bottom: 20px; border: 4px solid #fff; box-shadow: 0 8px 20px rgba(0,0,0,0.6);">
+                                
+                                <div style="background: rgba(168, 85, 247, 0.15); padding: 12px; border-radius: 8px; border: 1px dashed #a855f7; margin-bottom: 20px;">
+                                    <p style="font-size: 22px; font-weight: bold; color: #34d399; margin: 0; letter-spacing: 1px;">Bs 35</p>
+                                </div>
+                                
+                                <p style="font-size: 14px; color: #cbd5e1; line-height:1.6; margin-bottom: 20px;">Envía tu comprobante al siguiente numero +591 62596174 indicando tu<br><b style="color:#fff; font-size: 18px; background: rgba(0,0,0,0.5); padding: 2px 10px; border-radius: 5px;">ID: ${u.toUpperCase()}</b><br>a nuestro WhatsApp.</p>
+                                
+                                <button onclick="window.location.reload()" style="background: linear-gradient(135deg, #a855f7, #7e22ce); border: none; padding: 15px 20px; color: white; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 16px; width: 100%; box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">Ya envié el comprobante (Recargar)</button>
+                            </div>
+                        `;
+                    } else {
+                        // Comportamiento normal de error
+                        msgBox.innerText = '❌ ' + res.message; msgBox.style.color = '#ff6b6b';
 
-                    if (res.message.toLowerCase().includes('límite') || res.message.toLowerCase().includes('limite')) {
+                        if (res.message.toLowerCase().includes('límite') || res.message.toLowerCase().includes('limite')) {
                         if (!document.getElementById('btn-kill-limit')) {const btnKill = document.createElement('button');
                             btnKill.id = 'btn-kill-limit';
                             btnKill.innerHTML = '🗑️ BORRAR SESIONES ACTIVAS';
@@ -1681,22 +1713,24 @@ function showNotification(message, msgId, type = 'info') {
                                     
                                 } catch (e) {
                                     btnKill.innerText = '❌ Error'; 
-                                    msgBox.innerText = '⛔ ' + e.message; 
-                                    setTimeout(() => { btnKill.disabled=false; btnKill.innerText='🗑️ BORRAR SESIONES ACTIVAS'; }, 3000);
-                                }
-                            };
-                            // Inyectar botón en el DOM (Esto también estaba en tu original)
-                            msgBox.parentNode.insertBefore(btnKill, msgBox.nextSibling);
+                                        msgBox.innerText = '⛔ ' + e.message; 
+                                        setTimeout(() => { btnKill.disabled=false; btnKill.innerText='🗑️ BORRAR SESIONES ACTIVAS'; }, 3000);
+                                    }
+                                };
+                                msgBox.parentNode.insertBefore(btnKill, msgBox.nextSibling);
+                            }
                         }
                     }
                 }
             });
         };
+
         btnLogin.onclick = handleLogin;
         passInput.inp.onkeydown = (e) => { if (e.key === 'Enter') handleLogin(); };
 
         formContainer.append(title, userInput.wrap, passInput.wrap, btnLogin, btnRepair, msgBox);
-        overlay.appendChild(formContainer); document.body.appendChild(overlay);
+        overlay.appendChild(formContainer); 
+        document.body.appendChild(overlay);
     }
 
     // ============================================================
