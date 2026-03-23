@@ -4,13 +4,13 @@
     // ==========================================
     // 🌐 EL ENRUTADOR INTELIGENTE V12
     // ==========================================
-    const CEREBRO_URL = 'https://script.google.com/macros/s/AKfycbwRBmQk-FtHmzJAT4_VXNRO8Zh7g11jGjoYBYTCXf-S9zKIy8N3pn4cyJ5l5m6uBA/exec';
+    const CEREBRO_URL = 'https://script.google.com/macros/s/AKfycbz2VZm-hVrVHH_Ylzfk1v5bkN1ImiiVdZHEOaNhIf1jan5T9JyaOBYVh0f7xOQkr4oe/exec';
     
     // URLs de los Obreros Activos
-    const OBRERO_MEXICO_URL = 'https://script.google.com/macros/s/AKfycbwAzl1Lcg55Ny_u-QJrhHlrEp9TBdPzxDOpn6o_CTHQS2jqhuQ77qxkoZxn3Lkb5Yw6-w/exec';
-    const OBRERO_PERU_URL = 'https://script.google.com/macros/s/AKfycby4zP5SCph4tANth2KzhFGWw8--Z-a10rC4Tuwl1QAP1mmnwZa0pPCfOKUfYRhzAes/exec';
-    const OBRERO_BRASIL_URL = 'https://script.google.com/macros/s/AKfycbzqUE5pL7IUiFZNE-2cLunDUqJ629uG2qtGT1JlYhVOlhnA8qT4PzdynkRqNGESzwurKw/exec';
-    const OBRERO_COLOMBIA_URL = 'https://script.google.com/macros/s/AKfycbzPJtOIA4oV2bxzK9atXxHQrg4r5ivLGcP5nYY_MtazFXaScsYttQ4Sv7PqKD348wAr0Q/exec';
+    const OBRERO_MEXICO_URL = 'https://script.google.com/macros/s/AKfycbz2VZm-hVrVHH_Ylzfk1v5bkN1ImiiVdZHEOaNhIf1jan5T9JyaOBYVh0f7xOQkr4oe/exec';
+    const OBRERO_PERU_URL = 'https://script.google.com/macros/s/AKfycbz2VZm-hVrVHH_Ylzfk1v5bkN1ImiiVdZHEOaNhIf1jan5T9JyaOBYVh0f7xOQkr4oe/exec';
+    const OBRERO_BRASIL_URL = 'https://script.google.com/macros/s/AKfycbz2VZm-hVrVHH_Ylzfk1v5bkN1ImiiVdZHEOaNhIf1jan5T9JyaOBYVh0f7xOQkr4oe/exec';
+    const OBRERO_COLOMBIA_URL = 'https://script.google.com/macros/s/AKfycbz2VZm-hVrVHH_Ylzfk1v5bkN1ImiiVdZHEOaNhIf1jan5T9JyaOBYVh0f7xOQkr4oe/exec';
 
     const API_URL = (function() {
         const href = window.location.href;
