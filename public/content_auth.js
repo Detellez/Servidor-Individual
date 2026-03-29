@@ -2013,13 +2013,17 @@ function showNotification(message, msgId, type = 'info') {
         let lastEval = parseInt(localStorage.getItem('LAST_EVAL_TS') || Date.now().toString());
         let elapsed = Date.now() - lastEval;
         localStorage.setItem('LAST_EVAL_TS', Date.now().toString());
-        if (elapsed > 25000) elapsed = 20000; 
+        
+        // 🔥 FIX: Desbloqueo del tiempo, adaptado a latidos de 2 a 4 minutos
+        if (elapsed > 300000) elapsed = 120000; 
         if (elapsed < 0) elapsed = 0;
 
         let shouldUpdateExcel = false;
         if (isGloballyVisible) {
             accumulatedMs += elapsed; 
-            if (accumulatedMs >= (3 * 60 * 1000)) { 
+            // 🔥 Actualiza el Excel dando un margen de 5 segundos (115,000 ms) 
+            // para evitar desfases del reloj del navegador
+            if (accumulatedMs >= 115000) { 
                 shouldUpdateExcel = true;
                 accumulatedMs = 0; 
             }
@@ -2314,4 +2318,3 @@ function showNotification(message, msgId, type = 'info') {
     }, 2000);
 
 })();
-
